@@ -23,13 +23,13 @@ export default function FindJobseeker(): JSX.Element | null {
     const [selectedTags, setSelectedTags] = useState<TypeTag[]>([]);
 
     function loadTags() {
-        fetch('http://localhost:5225/tags/').then(text => text.json()).then(data => {
+        fetch('https://vacancyprojectwebapi.onrender.com/tags/').then(text => text.json()).then(data => {
             setTags((data as TypeTag[]))
         });
     }
 
     function loadJobTitles() {
-        fetch('http://localhost:5225/job-titles/').then(text => text.json()).then(data => {
+        fetch('https://vacancyprojectwebapi.onrender.com/job-titles/').then(text => text.json()).then(data => {
             setJobTitles((data as TypeJobTitle[]))
         });
     }
@@ -45,7 +45,7 @@ export default function FindJobseeker(): JSX.Element | null {
     const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        let url: string = 'http://localhost:5225/jobseekers/matched'
+        let url: string = 'https://vacancyprojectwebapi.onrender.com/jobseekers/matched'
 
         if (selectedJobTitle != undefined && selectedTags.length > 0) {
             fetch(url, {

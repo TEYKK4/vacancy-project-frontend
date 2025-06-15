@@ -23,19 +23,19 @@ export default function Home(): JSX.Element | null {
     const [selectedTags, setSelectedTags] = useState<TypeTag[]>([]);
 
     function loadTags() {
-        fetch('http://localhost:5225/tags/').then(text => text.json()).then(data => {
+        fetch('https://vacancyprojectwebapi.onrender.com/tags/').then(text => text.json()).then(data => {
             setTags((data as TypeTag[]))
         });
     }
 
     function loadJobTitles() {
-        fetch('http://localhost:5225/job-titles/').then(text => text.json()).then(data => {
+        fetch('https://vacancyprojectwebapi.onrender.com/job-titles/').then(text => text.json()).then(data => {
             setJobTitles((data as TypeJobTitle[]))
         });
     }
 
     function loadJobseekers() {
-        fetch('http://localhost:5225/jobseekers/').then(text => text.json()).then(data => {
+        fetch('https://vacancyprojectwebapi.onrender.com/jobseekers/').then(text => text.json()).then(data => {
             setJobseekers((data as TypeJobseeker[]))
         });
     }
@@ -55,7 +55,7 @@ export default function Home(): JSX.Element | null {
     const handleRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        let url: string = 'http://localhost:5225/jobseekers/'
+        let url: string = 'https://vacancyprojectwebapi.onrender.com/jobseekers/'
         const data: FormData = new FormData(e.currentTarget);
 
 
