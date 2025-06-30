@@ -65,14 +65,16 @@ export default function FindJobseeker(): JSX.Element | null {
     function getTags(jobseeker: TypeJobseeker): string {
         let tagsString: string = '';
         for (const item of jobseeker.tagIds) {
-            tagsString += tags.find(x => x.id == item)!.name;
-            tagsString += ' ';
+            const tag = tags.find(x => x.id === item);
+            if (tag) {
+                tagsString += tag.name + ' ';
+            }
         }
 
         return tagsString
     }
 
-    if (!tags || !jobTitles) {
+    if (tags.length === 0 || jobTitles.length === 0) {
         return <div>loading</div>
     }
 

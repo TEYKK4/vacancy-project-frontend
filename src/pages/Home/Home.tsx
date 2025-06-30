@@ -59,8 +59,13 @@ export default function Home(): JSX.Element | null {
         const data: FormData = new FormData(e.currentTarget);
 
 
-        if (selectedJobTitle != undefined && selectedTags.length > 0 && typeof data.get('firstName') != undefined &&
-            typeof data.get('lastName') != undefined && typeof data.get('email') != undefined) {
+        if (
+            selectedJobTitle !== undefined &&
+            selectedTags.length > 0 &&
+            data.get('firstName') !== null &&
+            data.get('lastName') !== null &&
+            data.get('email') !== null
+        ) {
 
             let jobseeker: TypeJobseeker = {
                 // @ts-ignore
@@ -80,7 +85,7 @@ export default function Home(): JSX.Element | null {
                 },
                 body: JSON.stringify(jobseeker)
             }).then(() => {
-                setJobseekers([...jobseekers, jobseeker]);
+                setJobseekers(prev => [...prev, jobseeker]);
             });
         }
     }
@@ -88,14 +93,16 @@ export default function Home(): JSX.Element | null {
     function getTags(jobseeker: TypeJobseeker): string {
         let tagsString: string = '';
         for (const item of jobseeker.tagIds) {
-            tagsString += tags.find(x => x.id == item)!.name;
-            tagsString += ' ';
+            const tag = tags.find(x => x.id === item);
+            if (tag) {
+                tagsString += tag.name + ' ';
+            }
         }
 
         return tagsString
     }
 
-    if (!tags || !jobseekers || !jobTitles) {
+    if (tags.length === 0 || jobTitles.length === 0) {
         return <div>loading</div>
     }
 
